@@ -7,21 +7,47 @@ namespace SalesWebMvc.Models
 {
     public class Seller
     {
+        #region Id
         public int Id { get; set; }
+        #endregion
+
+        #region Name
+        [Required(ErrorMessage = "{0} required")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")]
         public string Name { get; set; }
+        #endregion
+
+        #region Email
+        [Required(ErrorMessage = "{0} required")]
+        [EmailAddress(ErrorMessage = "Enter a valid email")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        #endregion
 
+        #region BaseSalary
+        [Required(ErrorMessage = "{0} required")]
+        [Range(100.0, 50000.0, ErrorMessage = "{0} mus be from {1} to {2}")]
         [Display(Name = "Base Salary")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double BaseSalary { get; set; }
+        #endregion
 
+        #region Birth Date
+        [Required(ErrorMessage = "{0} required")]
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd//MM/yyyy}")]
         public DateTime BirthDate { get; set; }
+        #endregion
+
+        #region Department
         public Department Department { get; set; }
+        #endregion
+
+        #region DepartmentId
         public int DepartmentId { get; set; }
+        #endregion
+
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
         public Seller()
